@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #form-tarea {
+      margin-top: 20px;
+    }
+
+    #input-tarea {
+      width: 70%;
+      padding: 10px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .tarea {
+      margin-top: 10px;
+    }
+
+    .tarea input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .tarea .completada {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Tareas</h1>
+    <div id="tareas">
+
+    </div>
+    <form id="form-tarea" onsubmit="return false;">
+      <input type="text" id="input-tarea" placeholder="Agregar una nueva tarea">
+      <button onclick="agregarTarea()">Agregar</button>
+    </form>
+  </div>
+
+  <script>
+    let tareas = [];
+
+    function agregarTarea() {
+      const inputTarea = document.getElementById('input-tarea');
+      const tarea = inputTarea.value.trim();
+      if (tarea !== '') {
+        const nuevaTarea = {
+          id: Date.now(),
+          nombre: tarea,
+          completada: false
+        };
+        tareas.push(nuevaTarea);
+        inputTarea.value = '';
+        renderizarTareas();
+      }
+    }
+
+    function editarTarea(id) {
+      const nuevaTarea = prompt('Editar tarea:');
+      if (nuevaTarea !== null && nuevaTarea !== '') {
+        const index = tareas.findIndex(t => t.id === id);
+        tareas[index].nombre = nuevaTarea;
+        renderizarTareas();
+      }
+    }
+
+    function completarTarea(id) {
+      const index = tareas.findIndex(t => t.id === id);
+      tareas[index].completada = !tareas[index].completada;
+      renderizarTareas();
+    }
+
+    function eliminarTarea(id) {
+      tareas = tareas.filter(t => t.id !== id);
+      renderizarTareas();
+    }
+
+    function renderizarTareas() {
+      const contenedorTareas = document.getElementById('tareas');
+      contenedorTareas.innerHTML = '';
+      tareas.forEach(tarea => {
+        const tareaElemento = document.createElement('div');
+        tareaElemento.classList.add('tarea');
+        tareaElemento.innerHTML = `
+          <input type="checkbox" ${tarea.completada ? 'checked' : ''} onclick="completarTarea(${tarea.id})">
+          <span class="${tarea.completada ? 'completada' : ''}">${tarea.nombre}</span>
+          <button onclick="editarTarea(${tarea.id})">Editar</button>
+          <button onclick="eliminarTarea(${tarea.id})">Eliminar</button>
+        `;
+        contenedorTareas.appendChild(tareaElemento);
+      });
+    }
+
+ 
+    tareas = [
+      { id: 1, nombre: 'Hacer la compra', completada: false },
+      { id: 2, nombre: 'Estudiar para el examen', completada: true },
+      { id: 3, nombre: 'Enviar correo electrónico', completada: false }
+    ];
+
+    
+    renderizarTareas();
+  </script>
+</body>
+</html>
