@@ -1,2 +1,4 @@
 # IntroduccionProgramacion
- Introduccion a la programacion, clase los todos los progrmas
+Aqui encontraras todos los programas realizados durante nuestra clase de Introduccion a la programacion. 
+
+Todos ellos utilizan HTML, CSS, y JavaScript 
