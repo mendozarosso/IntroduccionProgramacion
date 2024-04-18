@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador </h1>
+  <button onclick="generarNumeros()">Generar </button>
+
+  <h1>Validador de Números</h1>
+  <button onclick="validarNumero()">Validar </button>
+  <div id="resultado"></div>
+
+  <script>
+   
+    function generarNumeros() {
+      const numeros = new Set();
+      while (numeros.size < 40) {
+        const numero = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        numeros.add(numero);
+      }
+      localStorage.setItem('numeros', JSON.stringify([...numeros]));
+      alert('Números generados');
+    }
+
+
+    function validarNumero() {
+      const numerosAlmacenados = JSON.parse(localStorage.getItem('numeros'));
+      if (!numerosAlmacenados) {
+        alert('Primero genera los números antes de validar.');
+        return;
+      }
+      const numeroAleatorio = numerosAlmacenados[Math.floor(Math.random() * numerosAlmacenados.length)];
+      const numeroUsuario = prompt(`Entre el número ${numeroAleatorio}`);
+      if (numeroUsuario === numeroAleatorio) {
+        document.getElementById('resultado').innerText = 'El número es válido!';
+      } else {
+        document.getElementById('resultado').innerText = 'El número es inválido.';
+      }
+    }
+  </script>
+</body>
+</html>
