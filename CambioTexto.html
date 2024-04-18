@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iniciar Sesión</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+    <div class="login-container">
+      <h2>Cambio Texto</h2>
+      <form onsubmit="return false;">
+        <label for="titulo">Introduce El texto</label>
+        <input type="text" id="texto" name="Textp" placeholder="Ingrese el texto que desea cambiar" required>
+  
+        <label for="select">Selecciona el tipo de texto</label>
+        <select id="tipo">
+            <option value="Mayuscula">Mayuscula</option>
+            <option value="Minuscula">Minuscula</option>
+            <option value="Contar">Contar</option>
+            <option value="Palindromo">Palindromo</option>
+        </select>
+  
+        <br><br>
+        <button onclick="cambiarTexto()">Cambia Texto</button>
+        <br><br>
+        <div id="resultado"></div>
+      </form>
+    </div>
+  
+    <script>
+      class CambioTexto {
+          constructor() {
+              this.texto = "";
+          }
+  
+          mayuscula(texto) {
+              return texto.toUpperCase();
+          }
+  
+          minuscula(texto) {
+              return texto.toLowerCase();
+          }
+
+          contador(texto){
+            return texto.length;
+          }
+
+          palindromo(texto){
+            const textoLimpiado = texto.toLowerCase().replace(/[\W_]/g, '');
+            const textoReverso = textoLimpiado.split('').reverse().join('');
+            return textoLimpiado === textoReverso;
+          }
+      }
+      function cambiarTexto(){
+        const tipoSeleccionado = document.getElementById("tipo").value;
+        const textoIntroducido = document.getElementById("texto").value;
+        const cambioTexto = new CambioTexto();
+
+        let textoCambiado;
+
+        switch(tipoSeleccionado){
+            case "Mayuscula":
+                textoCambiado = cambioTexto.mayuscula(textoIntroducido);
+                break;
+            case "Minuscula": 
+                textoCambiado = cambioTexto.minuscula(textoIntroducido);
+                break;
+
+            case "Contar":
+                 textoCambiado = cambioTexto.contador(textoIntroducido);
+                 break;
+            
+            case "Palindromo":
+                 textoCambiado = cambioTexto.palindromo(textoIntroducido) ? 'Es un palíndromo' : 'No es un palíndromo';
+                 break;
+
+            default:
+                textoCambiado = "Seleccione una opción válida";
+        }
+
+        document.getElementById("resultado").innerText = textoCambiado;
+      }
+    </script>
+  </body>
+  </html>
