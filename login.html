@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iniciar Sesión</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form onsubmit="login(); return false;">
+      <label for="nombre-usuario">Nombre de Usuario:</label>
+      <input type="text" id="nombre-usuario" name="nombre-usuario" placeholder="Ingrese su nombre de usuario" required>
+
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña" required>
+
+      <button type="submit" id="submit">Iniciar Sesión</button>
+    </form>
+  </div>
+
+  <script>
+    function login() {
+      let nombreUsuario = document.getElementById("nombre-usuario").value;
+      let contrasena = document.getElementById("contrasena").value;
+
+
+      if (nombreUsuario > 5 && contrasena > 6) {
+
+       
+        alert("Inicio de sesión exitoso");
+       
+      } else {
+        
+        
+        alert("Nombre de usuario o contraseña incorrectos");
+      }
+    }
+  </script>
+</body>
+</html>
